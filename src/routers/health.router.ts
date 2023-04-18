@@ -8,4 +8,10 @@ router.get('/', (req: Request, res: Response) => {
     res.send(healtCheck);
 });
 
+router.get('/check',  (req: Request, res: Response) => {
+    const healtStatus = {status: 'Aplicação funcionando normalmente!'};
+
+    res.send(healtStatus);
+});
+
 export default router;
