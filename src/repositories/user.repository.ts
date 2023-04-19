@@ -14,7 +14,7 @@ class UserRepository {
         return User.create(user);
     }
 
-    update(email: string, user: Partial<typeof User>) {
+    update(email: string, user: Partial<IUser>) {
         return User.updateOne({email}, {$set: user})
     }
 
