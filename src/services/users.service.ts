@@ -8,7 +8,7 @@ class UsersService {
     return users;
   }
 
-  async getById(email: string) {
+  async getByEmail(email: string) {
     const user = await userRepository.getByEmail(email);
 
     return user;
