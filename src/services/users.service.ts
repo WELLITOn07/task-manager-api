@@ -1,4 +1,4 @@
-import { User } from "../models/user.model";
+import { IUser } from "../models/user.model";
 import userRepository from "../repositories/user.repository";
 
 class UsersService {
@@ -14,7 +14,7 @@ class UsersService {
     return user;
   }
 
-  async create(user: typeof User) {
+  async create(user: IUser) {
     const createdUser = await userRepository.create(user);
 
     if (!createdUser) {
@@ -34,7 +34,7 @@ class UsersService {
     return deletedUser;
   }
 
-  async update(email: string, user: Partial<typeof User>) {
+  async update(email: string, user: Partial<IUser>) {
     const updatedUser = await userRepository.update(email, user);
 
     if (updatedUser.matchedCount <= 0) {

@@ -1,5 +1,5 @@
 
-import { User } from '../models/user.model';
+import { IUser, User } from '../models/user.model';
 
 class UserRepository {
     getAll() {
@@ -10,11 +10,11 @@ class UserRepository {
         return User.findOne({email});
     }
 
-    create(user: typeof User) {
+    create(user: IUser) {
         return User.create(user);
     }
 
-    update(email: string, user: Partial<typeof User>) {
+    update(email: string, user: Partial<IUser>) {
         return User.updateOne({email}, {$set: user})
     }
 

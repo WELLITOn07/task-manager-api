@@ -8,7 +8,7 @@ export interface IUser {
   createdAt: string | Date
 };
 
-export const userSchema = new Schema({
+export const userSchema = new Schema<IUser>({
   _id: {
     type: String,
   },
@@ -24,4 +24,4 @@ export const userSchema = new Schema({
   },
 });
 
-export const User = mongoose.model("User", userSchema);
+export const User = mongoose.model<IUser>("User", userSchema);
