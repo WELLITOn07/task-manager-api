@@ -1,10 +1,16 @@
 import { Schema } from "mongoose";
 import mongoose from "mongoose";
 
+export interface IUser {
+  _id: string;
+  email: string;
+  password: string;
+  createdAt: string | Date
+};
+
 export const userSchema = new Schema({
   _id: {
-    auto: true,
-    type: 'ObjectId',
+    type: String,
   },
   email: {
     type: String
