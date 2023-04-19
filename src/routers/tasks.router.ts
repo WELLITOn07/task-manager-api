@@ -1,10 +1,9 @@
 import { Request, Response, Router } from "express";
 import tasksService from "../services/tasks.service";
-import { ObjectId } from "mongodb";
 
 const router = Router();
 
-router.get("/", async (req: Request, res: Response) => {
+router.get("/", async (__: Request, res: Response) => {
   const tasks = await tasksService.getAll();
 
   if (!tasks) {
@@ -15,9 +14,9 @@ router.get("/", async (req: Request, res: Response) => {
 });
 
 router.get("/:_id", async (req: Request, res: Response) => {
-  const {taskId} = req.params;
+  const {_id} = req.params;
 
-  const task = await tasksService.getById(taskId);
+  const task = await tasksService.getById(_id);
 
   if (!task) {
     return res.status(400).send({ message: "Tarefa não encontrada!" });
@@ -36,10 +35,10 @@ router.post("/", async (req: Request, res: Response) => {
 });
 
 router.delete("/remove/:_id", async (req: Request, res: Response) => {
-  const {taskId} = req.params;
+  const {_id} = req.params;
 
   try {
-    await tasksService.remove(taskId);
+    await tasksService.remove(_id);
     res.status(200).send({ message: "Tarefa removida com sucesso!" });
   } catch (error) {
     res.status(400).send({ message: "Erro ao remover tarefa" });
@@ -47,10 +46,10 @@ router.delete("/remove/:_id", async (req: Request, res: Response) => {
 });
 
 router.put("/:_id", async (req: Request, res: Response) => {
-  const {taskId} = req.params;
+  const {_id} = req.params;
 
   try {
-    await tasksService.update(taskId, req.body);
+    await tasksService.update(_id, req.body);
     res.status(200).send({ message: "Tarefa atualizada com sucesso!" });
   } catch (error) {
     res.status(400).send({ message: "Erro ao atualizar tarefa" });

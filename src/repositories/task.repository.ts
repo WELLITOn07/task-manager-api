@@ -6,20 +6,20 @@ class TaskRepository {
        return Task.find();
     }
 
-    getById(id: string) {
-        return Task.findOne({id});
+    getById(_id: string) {
+        return Task.findOne({_id});
     }
 
     create(task: typeof Task) {
         return Task.create(task);
     }
 
-    update(id: string, task: typeof Task) {
-        return Task.updateOne({id}, {$set: task})
+    update(_id: string, task: typeof Task) {
+        return Task.updateOne({_id}, {$set: task})
     }
 
-    remove(id: string) {
-        return Task.deleteOne({id});
+    remove(_id: string) {
+        return Task.deleteOne({_id});
     }
 };
 

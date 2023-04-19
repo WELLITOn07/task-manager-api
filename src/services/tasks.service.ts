@@ -8,8 +8,8 @@ class TasksService {
     return tasks;
   }
 
-  async getById(id: string) {
-    const task = await taskRepository.getById(id);
+  async getById(_id: string) {
+    const task = await taskRepository.getById(_id);
 
     return task;
   }
@@ -24,8 +24,8 @@ class TasksService {
     return createdTask;
   }
 
-  async remove(id: string) {
-    const deletedTask = await taskRepository.remove(id);
+  async remove(_id: string) {
+    const deletedTask = await taskRepository.remove(_id);
 
     if (deletedTask.deletedCount <= 0) {
       throw new Error();
@@ -34,8 +34,8 @@ class TasksService {
     return deletedTask;
   }
 
-  async update(id: string, task: typeof Task) {
-    const updatedTask = await taskRepository.update(id, task);
+  async update(_id: string, task: typeof Task) {
+    const updatedTask = await taskRepository.update(_id, task);
 
     if (updatedTask.matchedCount <= 0) {
       throw new Error();
