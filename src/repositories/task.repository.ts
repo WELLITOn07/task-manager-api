@@ -19,7 +19,7 @@ class TaskRepository {
     }
 
     remove(id: string) {
-        return Task.deleteOne({id: id});
+        return Task.deleteOne({id});
     }
 };
 
