@@ -1,3 +1,4 @@
+
 import { Task } from './../models/tasks.model';
 
 class TaskRepository {
@@ -18,7 +19,7 @@ class TaskRepository {
     }
 
     remove(id: string) {
-        return Task.deleteOne({id});
+        return Task.deleteOne({id: id});
     }
 };
 

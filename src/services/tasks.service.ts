@@ -1,66 +1,48 @@
 import { Task } from "../models/tasks.model";
+import taskRepository from "../repositories/task.repository";
 
-class tasksService {
-  tasks: Task[] = [
-    {
-      id: "0",
-      title: "Comprar leite",
-      description: "Comprar 2 litros de leite no mercado.",
-      completed: false,
-    },
-    {
-      id: "1",
-      title: "Pagar a conta de luz",
-      description: "Pagar a conta de luz que vence em 3 dias.",
-      completed: false,
-    },
-    {
-      id: "2",
-      title: "Estudar para a prova",
-      description: "Revisar as notas de aula para a prova de matemática.",
-      completed: true,
-    },
-  ];
+class TasksService {
+  async getAll() {
+    const tasks = await taskRepository.getAll();
 
-  getAll() {
-    return this.tasks;
+    return tasks;
   }
 
-  getById(id: string) {
-    const task: Task | undefined = this.tasks.find(task => {
-        return task.id === id;
-    })
+  async getById(id: string) {
+    const task = await taskRepository.getById(id);
 
     return task;
   }
 
-  create(task: Task) {
-    this.tasks.push(task);
-  }
+  async create(task: typeof Task) {
+    const createdTask = await taskRepository.create(task);
 
-  remove(id: string) {
-    const taskIndex = this.tasks.findIndex(
-        (task) => task.id === id
-    );
-
-    if (taskIndex === -1) {
-        throw new Error('Task não encontrada!');
+    if (!createdTask) {
+      throw new Error();
     }
 
-    this.tasks.splice(taskIndex, 1);
+    return createdTask;
   }
 
-  update(id: string, task: Task) {
-    const taskIndex = this.tasks.findIndex(
-        (task) => task.id === id
-      );
-    
-      if (taskIndex === -1) {
-        throw new Error('Task não encontrada!');
-      }
+  async remove(id: string) {
+    const deletedTask = await taskRepository.remove(id);
 
-      this.tasks[taskIndex] = task;
+    if (deletedTask.deletedCount <= 0) {
+      throw new Error();
+    }
+
+    return deletedTask;
   }
-};
 
-export default new tasksService();
+  async update(id: string, task: typeof Task) {
+    const updatedTask = await taskRepository.update(id, task);
+
+    if (updatedTask.matchedCount <= 0) {
+      throw new Error();
+    }
+
+    return updatedTask;
+  }
+}
+
+export default new TasksService();
