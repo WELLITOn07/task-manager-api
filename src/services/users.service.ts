@@ -1,5 +1,6 @@
 import { IUser } from "../models/user.model";
 import userRepository from "../repositories/user.repository";
+import bcrypt from 'bcrypt';
 
 class UsersService {
   async getAll() {
@@ -15,11 +16,11 @@ class UsersService {
   }
 
   async create(user: IUser) {
-    const createdUser = await userRepository.create(user);
-
-    if (!createdUser) {
-      throw new Error();
+    if(user.password) {
+      user.password = await bcrypt.hash(user.password, 10)
     }
+
+    const createdUser = await userRepository.create(user);
 
     return createdUser;
   }
