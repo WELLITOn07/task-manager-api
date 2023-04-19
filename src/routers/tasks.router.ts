@@ -3,7 +3,7 @@ import tasksService from "../services/tasks.service";
 
 const router = Router();
 
-router.get("/", async (__: Request, res: Response) => {
+router.get("/", async (req: Request, res: Response) => {
   const tasks = await tasksService.getAll();
 
   if (!tasks) {
