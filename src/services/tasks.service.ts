@@ -34,7 +34,7 @@ class TasksService {
     return deletedTask;
   }
 
-  async update(_id: string, task: typeof Task) {
+  async update(_id: string, task: Partial<typeof Task>) {
     const updatedTask = await taskRepository.update(_id, task);
 
     if (updatedTask.matchedCount <= 0) {

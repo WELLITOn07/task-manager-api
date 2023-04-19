@@ -14,7 +14,7 @@ class TaskRepository {
         return Task.create(task);
     }
 
-    update(_id: string, task: typeof Task) {
+    update(_id: string, task: Partial<typeof Task>) {
         return Task.updateOne({_id}, {$set: task})
     }
 
