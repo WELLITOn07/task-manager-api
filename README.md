@@ -13,4 +13,4 @@ Execução:
 
 Contem uma collection 'Insomnia_2023-04-19' na pasta raiz do projeto.
 
-Scripts sendo executado pelo comando 'npm run start-dev'.
+Script sendo executado pelo comando 'npm run start-dev'.
