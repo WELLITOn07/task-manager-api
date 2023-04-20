@@ -1,6 +1,12 @@
-import { IUser } from "../models/user.model";
+import { IUser, User } from "../models/user.model";
 import userRepository from "../repositories/user.repository";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const secretJWT = process.env.JWT_SECRET_KEY || "";
 
 class UsersService {
   async getAll() {
@@ -27,6 +33,29 @@ class UsersService {
     }
 
     return createdUser;
+  }
+
+  async authorization(email: string, password: string) {
+    const user = await userRepository.getByEmail(email);
+
+    if (!user) throw new Error("Usuário não encontrado");
+
+    const result = await bcrypt.compare(password, user.password);
+
+    if (result) {
+      return jwt.sign(
+        {
+          email: user.email,
+          _id: user._id,
+        },
+        secretJWT,
+        {
+          expiresIn: "1h",
+        }
+      );
+    }
+
+    throw new Error("Falha na autenticação");
   }
 
   async remove(email: string) {
