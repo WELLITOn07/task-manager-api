@@ -1,5 +1,5 @@
 
-import { Task } from './../models/tasks.model';
+import { Task } from '../models/task.model';
 
 class TaskRepository {
     getAll() {
